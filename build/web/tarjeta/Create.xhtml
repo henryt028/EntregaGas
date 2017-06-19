@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="TarjetaCreateDlg" widgetVar="TarjetaCreateDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.CreateTarjetaTitle}">
+            <h:form id="TarjetaCreateForm">
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="2" rendered="#{tarjetaController.selected != null}">
+                        <p:outputLabel value="#{bundle.CreateTarjetaLabel_tarjetacodigo}" for="tarjetacodigo" />
+                        <p:inputText id="tarjetacodigo" value="#{tarjetaController.selected.tarjetacodigo}" title="#{bundle.CreateTarjetaTitle_tarjetacodigo}" required="true" requiredMessage="#{bundle.CreateTarjetaRequiredMessage_tarjetacodigo}"/>
+                        <p:outputLabel value="#{bundle.CreateTarjetaLabel_tarjetafechaemision}" for="tarjetafechaemision" />
+                        <p:calendar id="tarjetafechaemision" pattern="MM/dd/yyyy" value="#{tarjetaController.selected.tarjetafechaemision}" title="#{bundle.EditTarjetaTitle_tarjetafechaemision}" required="true" requiredMessage="#{bundle.EditTarjetaRequiredMessage_tarjetafechaemision}" showOn="button"/>
+                        <p:outputLabel value="#{bundle.CreateTarjetaLabel_tarjetafechavencimiento}" for="tarjetafechavencimiento" />
+                        <p:calendar id="tarjetafechavencimiento" pattern="MM/dd/yyyy" value="#{tarjetaController.selected.tarjetafechavencimiento}" title="#{bundle.EditTarjetaTitle_tarjetafechavencimiento}" required="true" requiredMessage="#{bundle.EditTarjetaRequiredMessage_tarjetafechavencimiento}" showOn="button"/>
+                        <p:outputLabel value="#{bundle.CreateTarjetaLabel_tarjetacupoasignado}" for="tarjetacupoasignado" />
+                        <p:inputText id="tarjetacupoasignado" value="#{tarjetaController.selected.tarjetacupoasignado}" title="#{bundle.CreateTarjetaTitle_tarjetacupoasignado}" required="true" requiredMessage="#{bundle.CreateTarjetaRequiredMessage_tarjetacupoasignado}"/>
+                        <p:outputLabel value="#{bundle.CreateTarjetaLabel_tarjetaactiva}" for="tarjetaactiva" />
+                        <p:selectBooleanCheckbox id="tarjetaactiva" value="#{tarjetaController.selected.tarjetaactiva}" required="true" requiredMessage="#{bundle.EditTarjetaRequiredMessage_tarjetaactiva}"/>
+                        <p:outputLabel value="#{bundle.CreateTarjetaLabel_clientecedula}" for="clientecedula" />
+                        <p:selectOneMenu id="clientecedula" value="#{tarjetaController.selected.clientecedula}" required="true" requiredMessage="#{bundle.EditTarjetaRequiredMessage_clientecedula}">
+                            <f:selectItems value="#{clienteController.itemsAvailableSelectOne}"
+                                           var="clientecedulaItem"
+                                           itemValue="#{clientecedulaItem}"/>
+                        </p:selectOneMenu>
+                    </p:panelGrid>
+                    <p:commandButton actionListener="#{tarjetaController.create}" value="#{bundle.Save}" update="display,:TarjetaListForm:datalist,:growl" oncomplete="handleSubmit(args,'TarjetaCreateDialog');"/>
+                    <p:commandButton value="#{bundle.Cancel}" onclick="TarjetaCreateDialog.hide()"/>
+                </h:panelGroup>
+            </h:form>
+        </p:dialog>
+
+    </ui:composition>
+</html>

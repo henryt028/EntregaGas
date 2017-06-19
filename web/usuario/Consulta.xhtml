@@ -1,0 +1,34 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+    <ui:composition>
+
+        <p:dialog id="UsuarioConsultaDlg" widgetVar="UsuarioConsultaDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.EditUsuarioTitle}">
+            <h:form id="UsuarioConsultaForm">
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="2" id="datosUpdate">
+                        <p:outputLabel value="#{bundle.EditEntregaLabel_usuarioid}" for="usuarioid" />
+                        <p:inputText id="usuarioid" value="#{usuarioController.selected.usuarioid}" title="#{bundle.CreateUsuarioTitle_usuarioid}" required="true" requiredMessage="#{bundle.CreateUsuarioRequiredMessage_usuarioid}"/>
+                        
+                        <h:outputText value="#{bundle.ViewUsuarioLabel_usuarioid}"/>
+                        <h:outputText value="#{usuarioController.selected.usuarioid}" title="#{bundle.ViewUsuarioTitle_usuarioid}"/>
+                        <h:outputText value="#{bundle.ViewUsuarioLabel_usuarioclave}"/>
+                        <h:outputText value="#{usuarioController.selected.usuarioclave}" title="#{bundle.ViewUsuarioTitle_usuarioclave}"/>
+                        <h:outputText value="#{bundle.ViewUsuarioLabel_usuarionombre}"/>
+                        <h:outputText value="#{usuarioController.selected.usuarionombre}" title="#{bundle.ViewUsuarioTitle_usuarionombre}"/>
+                        <h:outputText value="#{bundle.ViewUsuarioLabel_usuariorol}"/>
+                        <h:outputText value="#{usuarioController.selected.convertirTipoUsuario()}" title="#{bundle.ViewUsuarioTitle_usuariorol}"/>
+                        <p:commandButton icon="ui-icon-search" actionListener="#{usuarioController.buscar(usuarioController.selected.usuarioid)}" value="#{bundle.Buscar}" update=":UsuarioConsultaForm"/>
+                        <p:commandButton value="#{bundle.Cancel}" onclick="UsuarioConsultaDialog.hide()"/>
+                    </p:panelGrid>                    
+                </h:panelGroup>
+            </h:form>
+        </p:dialog>
+
+    </ui:composition>
+</html>
+

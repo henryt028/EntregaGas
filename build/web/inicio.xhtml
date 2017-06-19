@@ -1,0 +1,41 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+    <ui:composition template="/template.xhtml">
+
+
+        <ui:define name="title">
+            <h:outputText value="#{bundle.Inicio}"></h:outputText>
+        </ui:define>
+
+        <ui:define name="body">
+            <h:form id="menu">
+                <p:menubar>
+                        <p:menuitem value="#{bundle.Home}" outcome="/inicio" icon="ui-icon-home"/>
+                        <p:submenu label="#{bundle.Administrar}">
+                            <p:submenu icon="ui-icon-person" label="#{bundle.Usuarios}">
+                                <p:menuitem icon="ui-icon-plus" value="Crear" actionListener="#{usuarioController.prepareCreate}" update=":UsuarioCreateForm" oncomplete="PF('UsuarioCreateDialog').show()"/>
+                                <p:menuitem icon="ui-icon-pencil" value="Modificar" update=":UsuarioEditForm" oncomplete="PF('UsuarioEditDialog').show()" />
+                                <p:menuitem icon="ui-icon-trash" value="Eliminar" update=":UsuarioDeleteForm" oncomplete="PF('UsuarioDeleteDialog').show()" />
+                                
+                                <p:menuitem icon="ui-icon-folder-open" value="Consulta General" update=":UsuarioListForm"  oncomplete="PF('UsuarioListDialog').show()" />
+                                <p:menuitem icon="ui-icon-search" value="#{bundle.ConsultaParametros}" actionListener="#{usuarioController.prepareBuscar}" update=":UsuarioConsultaForm" oncomplete="PF('UsuarioConsultaDialog').show()" />
+                            </p:submenu>
+                        </p:submenu>
+                    </p:menubar>
+            </h:form>
+            <ui:include src="/usuario/Create.xhtml"/>
+            <ui:include src="/usuario/Edit.xhtml"/>
+            <ui:include src="/usuario/View.xhtml"/>
+            <ui:include src="/usuario/Delete.xhtml"/>
+            <ui:include src="/usuario/Consulta.xhtml"/>
+            <ui:include src="/usuario/List.xhtml"/>
+            
+        </ui:define>
+    </ui:composition>
+</html>
+

@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="EntregaEditDlg" widgetVar="EntregaEditDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.EditEntregaTitle}">
+            <h:form id="EntregaEditForm">
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="2" rendered="#{entregaController.selected != null}">
+                        <p:outputLabel value="#{bundle.EditEntregaLabel_entregacodigo}" for="entregacodigo" />
+                        <p:inputText id="entregacodigo" value="#{entregaController.selected.entregacodigo}" title="#{bundle.EditEntregaTitle_entregacodigo}" required="true" requiredMessage="#{bundle.EditEntregaRequiredMessage_entregacodigo}"/>
+                        <p:outputLabel value="#{bundle.EditEntregaLabel_entregafecha}" for="entregafecha" />
+                        <p:calendar id="entregafecha" pattern="MM/dd/yyyy" value="#{entregaController.selected.entregafecha}" title="#{bundle.EditEntregaTitle_entregafecha}" required="true" requiredMessage="#{bundle.EditEntregaRequiredMessage_entregafecha}" showOn="button"/>
+                        <p:outputLabel value="#{bundle.EditEntregaLabel_entregacantidad}" for="entregacantidad" />
+                        <p:inputText id="entregacantidad" value="#{entregaController.selected.entregacantidad}" title="#{bundle.EditEntregaTitle_entregacantidad}" required="true" requiredMessage="#{bundle.EditEntregaRequiredMessage_entregacantidad}"/>
+                        <p:outputLabel value="#{bundle.EditEntregaLabel_tarjetacodigo}" for="tarjetacodigo" />
+                        <p:selectOneMenu id="tarjetacodigo" value="#{entregaController.selected.tarjetacodigo}" required="true" requiredMessage="#{bundle.EditEntregaRequiredMessage_tarjetacodigo}">
+                            <f:selectItem itemLabel="#{bundle.SelectOneMessage}"/>
+                            <f:selectItems value="#{tarjetaController.itemsAvailableSelectOne}"
+                                           var="tarjetacodigoItem"
+                                           itemValue="#{tarjetacodigoItem}"/>
+                        </p:selectOneMenu>
+                        <p:outputLabel value="#{bundle.EditEntregaLabel_usuarioid}" for="usuarioid" />
+                        <p:selectOneMenu id="usuarioid" value="#{entregaController.selected.usuarioid}" required="true" requiredMessage="#{bundle.EditEntregaRequiredMessage_usuarioid}">
+                            <f:selectItem itemLabel="#{bundle.SelectOneMessage}"/>
+                            <f:selectItems value="#{usuarioController.itemsAvailableSelectOne}"
+                                           var="usuarioidItem"
+                                           itemValue="#{usuarioidItem}"/>
+                        </p:selectOneMenu>
+                    </p:panelGrid>
+                    <p:commandButton actionListener="#{entregaController.update}" value="#{bundle.Save}" update="display,:EntregaListForm:datalist,:growl" oncomplete="handleSubmit(args, 'EntregaEditDialog');"/>
+                    <p:commandButton value="#{bundle.Cancel}" onclick="EntregaEditDialog.hide()"/>
+                </h:panelGroup>
+            </h:form>
+        </p:dialog>
+
+    </ui:composition>
+</html>

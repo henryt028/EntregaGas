@@ -1,0 +1,41 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+    <ui:composition>
+
+        <p:dialog id="UsuarioDeleteDlg" widgetVar="UsuarioDeleteDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.EditUsuarioTitle}">
+            <h:form id="UsuarioDeleteForm">
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="2" id="datosUpdate">
+                        <p:outputLabel value="#{bundle.EditEntregaLabel_usuarioid}" for="usuarioid" />
+                        <p:selectOneMenu id="usuarioid" value="#{usuarioController.selected}" filter="true" filterMatchMode="contains" required="true" requiredMessage="#{bundle.EditEntregaRequiredMessage_usuarioid}" >
+                            <f:selectItem itemLabel="#{bundle.SelectOneMessage}"/>
+                            <f:selectItems value="#{usuarioController.itemsAvailableSelectOne}"
+                                           var="usuarioidItem"
+                                           itemValue="#{usuarioidItem}"
+                                           itemLabel="#{usuarioidItem.usuarioid}"/>
+                            <p:ajax listener="#{usuarioController.handleChange()}" event="change" update=":UsuarioDeleteForm:display" process="@this"/>
+                        </p:selectOneMenu>
+                        
+                        <h:outputText value="#{bundle.ViewUsuarioLabel_usuarioid}"/>
+                        <h:outputText value="#{usuarioController.selected.usuarioid}" title="#{bundle.ViewUsuarioTitle_usuarioid}"/>
+                        <h:outputText value="#{bundle.ViewUsuarioLabel_usuarioclave}"/>
+                        <h:outputText value="#{usuarioController.selected.usuarioclave}" title="#{bundle.ViewUsuarioTitle_usuarioclave}"/>
+                        <h:outputText value="#{bundle.ViewUsuarioLabel_usuarionombre}"/>
+                        <h:outputText value="#{usuarioController.selected.usuarionombre}" title="#{bundle.ViewUsuarioTitle_usuarionombre}"/>
+                        <h:outputText value="#{bundle.ViewUsuarioLabel_usuariorol}"/>
+                        <h:outputText value="#{usuarioController.selected.usuariorol}" title="#{bundle.ViewUsuarioTitle_usuariorol}"/>
+                        <p:commandButton actionListener="#{usuarioController.destroy()}" value="#{bundle.Delete}" update="display,:menu,:growl" oncomplete="handleSubmit(args, 'UsuarioDeleteDialog');"/>
+                        <p:commandButton value="#{bundle.Cancel}" onclick="UsuarioDeleteDialog.hide()"/>
+                    </p:panelGrid>                    
+                </h:panelGroup>
+            </h:form>
+        </p:dialog>
+
+    </ui:composition>
+</html>
+
